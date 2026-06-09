@@ -1,0 +1,26 @@
+# Python bytecode önbellekleri
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Sanal Çalışma Ortamı (Virtual Environment)
+venv/
+env/
+.venv/
+
+# Hassas Çevre Değişkenleri ve Konfigürasyonlar (Asla commitleme!)
+.env
+.env.local
+.env.*.local
+
+# İşletim sistemi kalıntıları
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Protokol Analiz Verileri (Büyük veri paketleri repoyu şişirmesin)
+data/*.har
+reports/*.pcap
+reports/*.cap
