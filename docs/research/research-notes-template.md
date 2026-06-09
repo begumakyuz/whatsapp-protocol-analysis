@@ -20,3 +20,30 @@ Açık kaynak dünyasındaki tersine mühendislik projeleri, WhatsApp'ın web is
 1. **Veri Yakalama (Capture):** Tarayıcı DevTools (F12) Network paneli açılarak `WS` filtresi filtrelenmiş ve `wss://web.whatsapp.com/ws/chat` tüneli canlı takibe alınmıştır.
 2. **Analiz (Read):** Akan metin (Text) tabanlı frame'ler içinden el sıkışma parametreleri saptanmış, ikili (Binary) frame'ler ise hex formatında dışa aktarılmıştır.
 3. **HAR Export:** Tüm bu akış, adli bilişim kanıtı ve parser girdisi olarak `traffic.har` formatında diske kaydedilmiştir.
+
+## 🔢 WebSocket Secure (WSS) Adli Paket Çözümleme Sıralı Akışı
+
+Ağ trafiği (HAR) analiz edilirken işletilen en alt seviye (Low-Level) protokol çözümleme adımları aşağıda listelenmiştir:
+
+1. `data/traffic.har` dosyası adli bilişim standartlarında (Read-Only) belleğe alınır.
+2. `log.entries` dizisindeki her bir JSON objesinin veri bütünlüğü (Checksum) doğrulanır.
+3. İletişim isteklerindeki `resourceType` alanı taranarak `websocket` olan tüneller izole edilir.
+4. `wss://web.whatsapp.com/ws/chat` endpoint'ine ait aktif soket bağlantısı belirlenir.
+5. Soket içindeki `_webSocketMessages` dizisi zaman damgasına (timestamp) göre kronolojik sıraya dizilir.
+6. Her bir frame mesajının giden (send) mi gelen (receive) mi olduğu `type` parametresinden ayırt edilir.
+7. Ham payload verisinin uzunluğu (Length) byte cinsinden hesaplanır.
+8. Metin tabanlı (Text) mesajlar ile ikili (Binary) mesajlar Opcode değerlerine göre (`Opcode 1` vs `Opcode 2`) ayrıştırılır.
+9. Paket verisi üzerinde Shannon Entropi algoritması çalıştırılarak $H(X)$ değeri üretilir.
+10. Entropi skoru 7.5 ve üzeri olan paketler "Noise Protocol ile Şifrelenmiş Oturum Trafiği" olarak etiketlenir.
+11. Düşük entropili paketler RegEx imza kütüphanesiyle plaintext JWT, session_id veya JID ifşasına karşı taranır.
+12. Opcode 2 olan binary paketlerin ilk byte'ından Protobuf mesaj sınırları (`Payload Bounds`) hesaplanır.
+13. Protobuf Varint (Variable-Length Integer) çözücü fonksiyon tetiklenir.
+14. Her byte'ın MSB (Most Significant Bit) değeri kontrol edilerek Varint okuma döngüsü sonlandırılır.
+15. Ayrıştırılan bitler üzerinden `Field Number` (Alan Numarası) cımbızla çekilir.
+16. Bit maskeleme (`byte & 0x07`) işlemiyle Protobuf `Wire Type` (Tel Tipi) tespit edilir.
+17. Tel tipi 0 çıkan alanlar için sayısal ID çözümü (Varint Decoding) tamamlanır.
+18. Tel tipi 2 çıkan uzunluk sınırlı alanlar için (Length-delimited) string okuma arabelleği (`buffer`) oluşturulur.
+19. Çözülen string blokları içerisinden WhatsApp kullanıcı kimliği olan JID (`@s.whatsapp.net`) desenleri ayıklanır.
+20. Noise Protocol durum makinesinde (FSM) el sıkışma fazının `Noise_XX` deseniyle uyumu denetlenir.
+21. Gönderilen her paket sonrası `nonce` (mesaj sayacı) değeri yerelde 1 artırılarak senkronizasyon kontrol edilir.
+22. Havuzda biriken tüm anomali logları, adli analiz çıktısı üretmek üzere `reports/analysis-report.md` dosyasına basılır.
