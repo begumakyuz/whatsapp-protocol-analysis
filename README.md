@@ -1,14 +1,22 @@
 <div align="center">
-<a href="[https://istinye.edu.tr](https://istinye.edu.tr)">
-    <img src="docs/assets/istinye-university-logo.webp" alt="İstinye Üniversitesi" width="180"/>
+  <a href="https://istinye.edu.tr">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Istinye_University_Logo.png" alt="İstinye Üniversitesi" width="220"/>
   </a>
 
-  # WhatsApp Web Açık Protokol Analiz ve Siber Güvenlik RE Projesi
+  <br/><br/>
 
-  ![GitHub](https://img.shields.io/badge/GitHub-Private-red?style=flat-square&logo=github)
-  ![Dil](https://img.shields.io/badge/Dil-Python-blue?style=flat-square)
-  ![Durum](https://img.shields.io/badge/Durum-Devam%20Ediyor-yellow?style=flat-square)
-  ![Ders](https://img.shields.io/badge/Ders-BGT210-purple?style=flat-square)
+  # 🚀 WhatsApp Web Açık Protokol Analiz ve Siber Güvenlik RE Projesi 🛡️
+
+  <p align="center">
+    <img src="https://img.shields.io/badge/GitHub-Private-red?style=for-the-badge&logo=github" alt="GitHub"/>
+    <img src="https://img.shields.io/badge/Dil-Python-blue?style=for-the-badge&logo=python" alt="Dil"/>
+    <img src="https://img.shields.io/badge/Durum-Devam%20Ediyor-yellow?style=for-the-badge&logo=git" alt="Durum"/>
+    <img src="https://img.shields.io/badge/Ders-BGT210-purple?style=for-the-badge" alt="Ders"/>
+  </p>
+  
+  <br/>
+  
+  *İstinye Üniversitesi Bilgi Güvenliği Teknolojisi Bölümü kapsamında geliştirilmiş, ileri düzey tersine mühendislik ve WSS paket analiz motoru.* 🔍⚡
 </div>
 
 ---
