@@ -45,6 +45,8 @@ class WhatsAppProtobufDecoder:
         result = 0
         shift = 0
         while True:
+            if shift >= 64:
+                raise ValueError("Siber Güvenlik Önlemi: Maksimum Varint boyutu aşıldı (Olası CPU DoS atağı).")
             if index >= len(buffer):
                 raise ValueError("Varint ayrıştırılırken beklenmeyen buffer sonu (Truncated Packet).")
             byte = buffer[index]

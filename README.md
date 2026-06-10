@@ -74,6 +74,12 @@ Sistem;
 
 ---
 
+### 🎬 Uygulama Demo Videosu
+
+![Proje Demo Videosu](demo/demo_video.webp)
+
+---
+
 ### 🖥️ Canlı Terminal Analiz Çıktısı (Execution Log)
 
 <p align="center">
@@ -118,6 +124,8 @@ Sistem;
 │       └── ci.yml
 ├── data/
 │   └── traffic.har
+├── demo/
+│   └── demo_video.webp
 ├── docs/
 │   ├── modules/
 │   │   └── websocket-parser.md

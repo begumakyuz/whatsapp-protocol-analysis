@@ -16,6 +16,11 @@ import os
 import sys
 import argparse
 from datetime import datetime
+
+# Windows terminal UTF-8 uyumluluğu için
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+
 from core.parser import WhatsAppRepositoryAnalyzer, logger
 
 # Terminal Renklendirme ve Estetik Katmanı (grade.ts verbose / terminal uyumluluğu)
@@ -131,8 +136,8 @@ def main():
         
     # Bulguların ve Risklerin Derlenmesi
     security_risks = repo_analyzer.compile_security_report_matrix()
-    extracted_tokens = repo_analyzer.dpi.scan_results.get("token_leak", set())
-    token_strings_set = {t["matched_indicator"] for t in extracted_tokens} if isinstance(extracted_tokens, list) else set()
+    extracted_tokens = repo_analyzer.dpi.scan_results.get("token_leak", [])
+    token_strings_set = {t["matched_indicator"] for t in extracted_tokens} if extracted_tokens else set()
     
     # 3. Aşama: Konsol Ekranına Gelişmiş Siber Güvenlik Özeti Sunumu
     print("\n" + TerminalColors.BOLD + "="*23 + " PROTOKOL RE ÖZET MATRİSİ " + "="*23)

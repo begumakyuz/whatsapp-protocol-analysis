@@ -18,8 +18,17 @@ import json
 import re
 import math
 import logging
-from typing import Dict, List, Any, Set, Tuple, Optional, Union
+from typing import Dict, List, Any, Set, Tuple, Optional, Union, TypedDict
 from datetime import datetime
+
+class WebSocketFrame(TypedDict):
+    type: str
+    time: str
+    opcode: int
+    data: Union[str, bytes]
+    entropy: float
+    byte_matrix: Dict[str, float]
+    size: int
 
 # Yeni yazdığımız alt modüllerin kripto ve binary katmanına entegrasyonu
 from core.protobuf import WhatsAppProtobufDecoder
@@ -79,10 +88,14 @@ class CryptographicAnalyzer:
         if not payload:
             return 0.0
             
+        # Siber güvenlik prensibi: Kriptografik veri her zaman binary olmalıdır.
         if isinstance(payload, str):
-            byte_data = payload.encode('utf-8', errors='ignore')
-        else:
+            # String veriyi utf-8 ile encode ederken ignore kullanmak karakter bütünlüğünü bozar
+            byte_data = payload.encode('utf-8')
+        elif isinstance(payload, bytes):
             byte_data = payload
+        else:
+            raise TypeError("Entropi hesaplaması sadece str veya bytes kabul eder.")
 
         total_len = len(byte_data)
         if total_len == 0:
@@ -108,7 +121,13 @@ class CryptographicAnalyzer:
         if not payload:
             return {"null_frame": 1.0}
 
-        byte_data = payload.encode('utf-8', errors='ignore') if isinstance(payload, str) else payload
+        if isinstance(payload, str):
+            byte_data = payload.encode('utf-8')
+        elif isinstance(payload, bytes):
+            byte_data = payload
+        else:
+            byte_data = b""
+            
         total_size = len(byte_data)
         
         matrix = {"printable_ascii": 0, "control_chars": 0, "non_ascii": 0}
@@ -304,7 +323,7 @@ class WhatsAppRepositoryAnalyzer:
         self.noise_simulator = WhatsAppNoiseHandshakeSimulator()
         
         self.endpoints: List[str] = []
-        self.websocket_frames: List[Dict[str, Any]] = []
+        self.websocket_frames: List[WebSocketFrame] = []
         self.execution_metadata: Dict[str, Any] = {}
         self.working_sessions_count = 0
         self.binary_leaks_found: List[Dict[str, Any]] = []
@@ -355,16 +374,16 @@ class WhatsAppRepositoryAnalyzer:
                             except ValueError:
                                 pass
 
-                        # Kriptografik entropi ve matris analizi
-                        entropy = self.crypto.calculate_shannon_entropy(str(payload))
-                        byte_matrix = self.crypto.generate_byte_frequency_matrix(str(payload))
+                        # Kriptografik entropi ve matris analizi (Güvenli Tip Geçişi)
+                        entropy = self.crypto.calculate_shannon_entropy(payload)
+                        byte_matrix = self.crypto.generate_byte_frequency_matrix(payload)
 
                         # 1. ENTEGRASYON KATMANI: Noise Handshake Durum Yönetimi
                         is_sender = (msg_type == "send")
                         # Payload string'ini simülasyon için byte nesnesine dönüştürüyoruz
-                        dummy_bytes = str(payload).encode('utf-8', errors='ignore')
+                        dummy_bytes = payload.encode('utf-8', errors='ignore') if isinstance(payload, str) else payload
                         self.noise_simulator.process_handshake_step(dummy_bytes, is_sender)
-                        self.state_machine.feed_frame(opcode, str(payload), is_sender)
+                        self.state_machine.feed_frame(opcode, str(payload) if isinstance(payload, bytes) else payload, is_sender)
 
                         # 2. ENTEGRASYON KATMANI: Binary Opcode 2 ise Protobuf Çözücüye Gönder
                         if opcode == 2 and payload:
