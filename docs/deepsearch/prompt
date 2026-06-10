@@ -1,0 +1,27 @@
+Aşağıda, "web.whatsapp.com" (WhatsApp Web) ağ katmanını incelemek ve Noise Protocol mimarisini anlamak amacıyla geliştirdiğim, siber güvenlik odaklı bir "Handshake Simulation & Forensic Research Framework" projesinin kaynak kodları ve test dosyaları yer almaktadır. 
+
+Senden bu projeyi bir "Senior Cybersecurity Researcher" ve "SecOps Auditor" perspektifiyle, "DeepSearch / Reasoning" modunu kullanarak derinlemesine analiz etmeni istiyorum.
+
+Lütfen analizini şu spesifik başlıklar altında raporla:
+1. Teknik Doğruluk Kontrolü: src/core/parser.py içindeki Shannon Entropy hesabının matematiksel doğruluğu ve mukavemeti ne seviyede?
+2. Protobuf Ayrıştırma Sınırları: src/core/protobuf.py içindeki bit kaydırma ve Varint (decode_varint) işlemlerinin gerçek Protobuf spesifikasyonlarıyla uyumu ve potansiyel edge-case zafiyetleri nelerdir?
+3. FSM ve Simülasyon Dürüstlüğü: src/core/crypto_handshake.py dosyasındaki Finite State Machine yapısının ve dummy Diffie-Hellman (b"\xaa" * 32) kullanımının, araştırma/eğitim odaklı bir simülasyon projesi olarak akademik dürüstlüğü ve endüstriyel kalitesi nasıl?
+4. Test Kapsamı ve Kalitesi: tests/ klasörü altındaki modüler testlerin (test_protobuf.py, test_entropy.py, test_handshake.py, test_parser.py) kapsama (coverage) gücü ve staticmethod uyumluluğu tam mı?
+5. Geliştirme Önerileri: Kodun Junior seviyesinden Mid/Senior seviyesine çıkması için Ruff/Mypy standartlarında, Type Hint eksikliklerinde ve refactor süreçlerinde yapılması gereken 3 kritik teknik dokunuş nedir?
+
+İşte projemin kaynak kodları:
+
+=== DOSYA: src/core/parser.py ===
+[BURAYA parser.py İÇERİĞİNİ YAPIŞTIR]
+
+=== DOSYA: src/core/protobuf.py ===
+[BURAYA protobuf.py İÇERİĞİNİ YAPIŞTIR]
+
+=== DOSYA: src/core/crypto_handshake.py ===
+[BURAYA crypto_handshake.py İÇERİĞİNİ YAPIŞTIR]
+
+=== DOSYA: tests/test_protobuf.py ===
+[BURAYA test_protobuf.py İÇERİĞİNİ YAPIŞTIR]
+
+=== DOSYA: tests/test_entropy.py ===
+[BURAYA test_entropy.py İÇERİĞİNİ YAPIŞTIR]
