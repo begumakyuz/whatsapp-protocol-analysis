@@ -5,7 +5,7 @@
 - **Dönem:** 2025-2026 Bahar Dönemi (Spring)
 - **Ders Kodu ve Adı:** BGT210 - Tersine Mühendislik (Reverse Engineering)
 - **Danışman / Instructor:** Keyvan Arasteh
-- **Rapor Üretim Zamanı:** 2026-06-10 02:46:52
+- **Rapor Üretim Zamanı:** 2026-06-10 04:02:21
 
 ## 🎯 Hedef ve Kapsam Bilgisi / Target Info
 - **Analiz Edilen Protokol Katmanı:** WebSocket Secure (WSS) / HTTP Archive (HAR)

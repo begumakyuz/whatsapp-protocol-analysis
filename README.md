@@ -60,6 +60,15 @@ Sistem;
 
 ---
 
+### 🖥️ Canlı Terminal Analiz Çıktısı (Execution Log)
+
+<p align="center">
+  <img src="docs/images/packet-analysis.png" alt="WhatsApp Protocol Parser Terminal Output" width="800"/>
+</p>
+
+---
+
+
 # 🏗️ Sistem Mimarisi
 
 ```text
