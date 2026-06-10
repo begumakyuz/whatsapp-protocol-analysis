@@ -45,17 +45,21 @@
 
 ---
 ## 🗺️ İçindekiler (Table of Contents)
-1. 🎯 [1. Proje Özeti ve Kapsamı](#-1-proje-özeti-ve-kapsamı)
-2. ⚙️ [2. Sistem Mimarisi (Architecture Flow)](#%EF%B8%8F-2-sistem-mimarisi-architecture-flow)
-3. 🧠 [3. Teknik Derinlik ve Gerçek İmplementasyon Sınırları](#-3-teknik-derinlik-ve-gerçek-implementasyon-sınırları)
-4. 📂 [4. Repository Klasör Yapısı](#-4-repository-klasör-yapısı)
-5. 🧪 [5. Kurulum ve Otomatik Test Talimatları](#-5-kurulum-ve-otomatik-test-talimatları)
-   * 🤖 [5.1. Sanal Ortam Kurulumu ve Bağımlılıklar](#-51-sanal-ortam-kurulumu-ve-bağımlılıklar)
-   * 🧪 [5.2. Otomatik Ünite Testleri (PyTest & CI/CD)](#-52-otomatik-ünite-testleri-pytest--cicd)
-   * 💻 [5.3. Yerel Adli Analiz Hattını Çalıştırma (Forensic Pipeline)](#-53-yerel-adli-analiz-hattını-çalıştırma-forensic-pipeline)
-   * 🐋 [5.4. Docker Laboratuvar İzolasyon Testi](#-54-docker-laboratuvar-izolasyon-testi)
-6. 📋 [6. Belgeleme Gereksinimleri](#-6-belgeleme-gereksinimleri)
-7. 💎 [7. Profesyonellik Standartları](#-7-profesyonellik-standartları)
+1. 👨‍🏫 [Danışman Bilgisi](#-danışman-bilgisi)
+2. 👩‍💻 [Öğrenci Bilgisi](#-öğrenci-bilgisi)
+3. 📚 [Ders Bilgileri](#-ders-bilgileri)
+4. 🎯 [Proje Özeti ve Kapsamı](#-proje-özeti-ve-kapsamı)
+5. 🏗️ [Sistem Mimarisi](#%EF%B8%8F-sistem-mimarisi)
+6. 📂 [Repository Yapısı](#-repository-yapısı)
+7. 🧠 [Teknik Bileşenler](#-teknik-bileşenler)
+8. 📋 [Örnek Analiz Çıktısı](#-örnek-analiz-çıktısı)
+9. 🚀 [Kurulum](#-kurulum)
+10. 🧪 [Testler](#-testler)
+11. 🔍 [Analiz Çalıştırma](#-analiz-çalıştırma)
+12. 🐳 [Docker](#-docker)
+13. 📚 [Dokümantasyon Yapısı](#-dokümantasyon-yapısı)
+14. 📌 [Profesyonel Standartlar](#-profesyonel-standartlar)
+15. ⚠️ [Uyarı](#%EF%B8%8F-uyarı)
 
 ---
 
@@ -127,6 +131,9 @@ Sistem;
 ├── demo/
 │   └── demo_video.webp
 ├── docs/
+│   ├── deepsearch/
+│   │   ├── analysis_output.md
+│   │   └── prompt_command.md
 │   ├── modules/
 │   │   └── websocket-parser.md
 │   ├── references/
@@ -277,6 +284,7 @@ docker compose up --build
 
 | Klasör          | İçerik                   |
 | --------------- | ------------------------ |
+| docs/deepsearch | DeepSearch prompt ve rehber çıktıları |
 | docs/modules    | Modül açıklamaları       |
 | docs/research   | Araştırma notları        |
 | docs/references | Kaynaklar ve referanslar |
