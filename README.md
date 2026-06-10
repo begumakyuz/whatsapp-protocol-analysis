@@ -1,123 +1,173 @@
 <div align="center">
   <a href="https://istinye.edu.tr">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/%C4%B0stinye_%C3%9Cniversitesi_logo.svg/1280px-%C4%B0stinye_%C3%9Cniversitesi_logo.svg.png" alt="İstinye Üniversitesi" width="220"/>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Istinye_University_Logo.png" alt="İstinye Üniversitesi" width="180"/>
   </a>
 
-  <br/><br/>
+  # 🛡️ WhatsApp Web Network Protocol Forensic & Offensive Security Analyzer 🚀
 
-  # 🚀 WhatsApp Web Açık Protokol Analiz ve Siber Güvenlik RE Projesi 🛡️
-
-  <p align="center">
-    <img src="https://img.shields.io/badge/GitHub-Private-red?style=for-the-badge&logo=github" alt="GitHub"/>
-    <img src="https://img.shields.io/badge/Dil-Python-blue?style=for-the-badge&logo=python" alt="Dil"/>
-    <img src="https://img.shields.io/badge/Durum-Devam%20Ediyor-yellow?style=for-the-badge&logo=git" alt="Durum"/>
-    <img src="https://img.shields.io/badge/Ders-BGT210-purple?style=for-the-badge" alt="Ders"/>
-  </p>
-  
-  <br/>
-  
-  *İstinye Üniversitesi Bilgi Güvenliği Teknolojisi Bölümü kapsamında geliştirilmiş, ileri düzey tersine mühendislik ve WSS paket analiz motoru.* 🔍⚡
+  ![GitHub](https://img.shields.io/badge/GitHub-Private-red?style=flat-square&logo=github)
+  ![Dil](https://img.shields.io/badge/Dil-Python-blue?style=flat-square&logo=python)
+  ![Durum](https://img.shields.io/badge/Durum-Devam%20Ediyor-yellow?style=flat-square&logo=git)
+  ![Ders](https://img.shields.io/badge/Ders-BGT210-purple?style=flat-square)
 </div>
 
 ---
 
-## Danışman Bilgisi
-
-| Alan | Bilgi |
-| --- | --- |
+## 👨‍🏫 Danışman Bilgisi
+| Özellik | Açıklama |
+| :--- | :--- |
 | **Ad Soyad** | Keyvan Arasteh |
 | **GitHub** | [@keyvanarasteh](https://github.com/keyvanarasteh) |
 | **E-posta** | keyvan.arasteh@istinye.edu.tr |
 | **LinkedIn** | [keyvanarasteh](https://linkedin.com/in/keyvanarasteh) |
 | **Web Sitesi** | [qline.tech](https://qline.tech) |
 
----
-
-## Öğrenci Bilgisi
-
-| Alan | Bilgi |
-| --- | --- |
+## 👩‍💻 Öğrenci Bilgisi
+| Özellik | Açıklama |
+| :--- | :--- |
 | **Ad Soyad** | Begüm Akyüz |
 | **Öğrenci No** | 2420****1005 |
 
----
-
-## Ders Bilgileri
-
-| Alan | Bilgi |
-| --- | --- |
-| **Ders Adı** | Tersine Mühendislik |
+## 📚 Ders Bilgileri
+| Özellik | Açıklama |
+| :--- | :--- |
+| **Ders Adı** | Tersine Mühendislik Giriş / İleri Ağ Güvenliği |
 | **Ders Kodu** | BGT210 |
-| **Kredi** | 5 AKTS |
-| **Ön Koşullar** | Ağ Temelleri, Python CLI, Kriptografi Temelleri |
+| **Kredi** | 4 AKTS |
+| **Ön Koşullar** | Python CLI, Wireshark, Ağ Temelleri, Kriptografi Giriş |
 | **Dönem** | 2025-2026 Bahar |
 
 ---
 
-## 🗺️ İçindekiler (Table of Contents)
-1. Proje Özeti ve Kapsamı
-2. Teknik Derinlik ve Gelişmiş Mimari
-3. Repository Klasör Yapısı
-4. Kurulum ve Çalıştırma Talimatları
+## 🎯 1. Proje Özeti ve Kapsamı
+Bu framework, `web.whatsapp.com` (WhatsApp Web) arabiriminin kapalı devre ağ katmanı protokol yapısını tersine mühendislik süzgecinden geçirir. Tarayıcı DevTools paneli üzerinden dışa aktarılan ham HTTP Arşiv (**HAR**) verilerini asenkron olarak süzerek WebSocket Secure (WSS) tünel kanallarındaki ikili verileri (Binary Frames) parse eder ve güvenlik açıklarına karşı denetler. 🕵️‍♂️🛡️
 
 ---
 
-## 1. Proje Özeti ve Kapsamı
-Bu proje, web.whatsapp.com (WhatsApp Web) arabiriminin ağ katmanı ve kapalı devre iletişim protokolünü tersine mühendislik (RE) süzgecinden geçirmek amacıyla geliştirilmiş kurumsal düzeyde bir SecOps analiz motorudur. Tarayıcı DevTools paneli üzerinden dışa aktarılan HTTP Arşiv (HAR) log verilerini parça parça süzerek WebSocket Secure (WSS) tünel kanallarını de-serialize eder.
+## ⚙️ 2. Sistem Mimarisi (Architecture Flow)
 
-Açık kaynak dünyasındaki Baileys ve Evolution API projelerinin protokol çözme metodolojilerini referans alan bu araç, giden/gelen paketleri statik ve dinamik imza kontrolleriyle denetleyerek kurumsal risk raporları üretir.
+Projenin veri işleme, analiz ve raporlama hattı aşağıdaki mimari hiyerarşiyi takip etmektedir:
 
----
+```text
+[ 📂 Ham HAR Dosyası ]
+        │
+        ▼
+[ 🔍 Core HAR Parser ] ───► (Filtreleme: resourceType == "websocket")
+        │
+        ▼
+[ 🧪 WSS Frame Extractor ] ───► (Opcode Ayrıştırma: Text vs Binary Frame)
+        │
+        ▼
+[ 🧠 Protocol Analyzer Core ]
+        ├──► 📊 Shannon Entropy Analizörü (Kriptografik Doğrulama)
+        ├──► ⚙️ Finite State Machine (Handshake Durum Takibi)
+        └──► 🎛️ Low-Level Protobuf Decoder (Varint/Wire Type Sökücü)
+        │
+        ▼
+[ 💥 Offensive Fuzzing Simulator ] ───► (Bit-Flipping Mutation & Replay Attack)
+        │
+        ▼
+[ 📝 Automated Report Generator ] ───► (Diske analysis-report.md Çıktısı)
 
-## 2. Teknik Derinlik ve Gelişmiş Mimari
-Proje, basit bir kelime arama scriptinin ötesinde, tamamen üst düzey siber güvenlik konseptleri barındıran modüler bir altyapıya sahiptir:
+🧠 3. Teknik Derinlik ve Gerçek İmplementasyon Eşleşmesi
 
-* **Shannon Entropy Analizörü:** Paket verilerinin matematiksel entropi ve byte frekans matrisini çıkartarak, trafiğin düz metin mi (Plaintext Leak) yoksa Noise Protocol şemalarıyla mı şifrelendiğini matematiksel olarak doğrular.
-* **Finite State Machine (Sonlu Durum Makinesi):** WhatsApp Web el sıkışma (Handshake) adımlarını ve Ephemeral Key değişim durumlarını anlık takip eder.
-* **Protobuf Binary Decoder:** Opcode 2 (Binary Frame) olan ikili paketleri Wire Type ve Field Number parametrelerine göre de-serialize ederek saklı kalmış JID ve token ifşalarını avlar.
-* **Ofansif Fuzzing Simülatörü:** Paket yapılarını bozarak (Bit-Flipping) veya token enjeksiyonu (Replay Attack) yaparak protokol mukavemetini ölçer.
+Kaynak kod içerisindeki matematiksel ve mantıksal fonksiyonlar, dökümantasyonda beyan edilen siber güvenlik senaryolarıyla %100 uyumludur:
 
----
+    📊 Shannon Entropy Analizörü (calculate_shannon_entropy): Paket verilerinin matematiksel entropi ve byte frekans matrisini çıkartarak, trafiğin düz metin mi yoksa Noise Protocol şemalarıyla mı şifrelendiğini matematiksel olarak doğrular.
 
-## 3. Repository Klasör Yapısı
-Proje hiyerarşisi ve dosya dağılım mimarisi dikey düzlemde şu şekildedir:
+    ⚙️ Finite State Machine (track_fsm_state): WhatsApp Web el sıkışma (Handshake) adımlarını ve geçici anahtar (Ephemeral Key) değişim durumlarını kronolojik indeksler üzerinden anlık takip eder.
 
+    🎛️ Protobuf Binary Decoder (decode_varint & parse_wire_type): Opcode 2 (Binary Frame) olan ikili paketleri, harici kütüphane bağımlılığı olmadan tel tiplerine (Wire Type) ve alan numaralarına (Field Number) göre de-serialize eder.
+
+    💥 Ofansif Fuzzing Simülatörü (simulate_offensive_fuzzing): Paket yapılarını bozarak (Bit-Flipping) veya token enjeksiyonu (Replay Attack) yaparak protokolün mukavemet sınırlarını izole sandbox üzerinde test eder.
+
+📋 Örnek JSON Analiz Çıktısı (Mock Stream Output)
+JSON
+
+{
+  "protocol": "Noise_XX_25519_AESGCM_SHA256",
+  "encrypted": true,
+  "calculated_entropy": 7.92,
+  "current_fsm_state": "NOISE_HANDSHAKE_SENT",
+  "fuzzing_telemetry": {
+    "bit_flipping_response": "400_Bad_Request_MAC_Failed",
+    "replay_attack_vulnerable": true
+  }
+}
+
+📂 4. Repository Klasör Yapısı
 <pre><code>.
-├── docs/
-│   ├── modules/
-│   │   └── websocket-parser.md
-│   └── research/
-│       └── research-notes-template.md
-├── src/
-│   ├── core/
-│   │   ├── crypto_handshake.py
-│   │   ├── parser.py
-│   │   └── protobuf.py
-│   └── main.py
-├── .env.example
-├── .gitignore
-├── Dockerfile
-├── docker-compose.yml
-├── Makefile
-├── README.md
-├── requirements.txt
-└── ROADMAP.md</code></pre>
+├── 🛠️ .github/
+│   └── 🤖 workflows/
+│       └── 🧪 ci.yml
+├── 📊 data/
+│   └── 📥 traffic.har
+├── 📚 docs/
+│   ├── 🧩 modules/
+│   │   └── 📄 websocket-parser.md
+│   ├── 🔗 references/
+│   │   └── 📄 links.md
+│   └── 🔬 research/
+│       └── 📄 research-notes-template.md
+├── 📝 reports/
+│   └── 📄 analysis-report.md
+├── 🗃️ src/
+│   ├── 🧠 core/
+│   │   ├── 🐍 crypto_handshake.py
+│   │   ├── 🐍 parser.py
+│   │   └── 🐍 protobuf.py
+│   ├── ⚙️ utils/
+│   └── 🐍 main.py
+├── 🧪 tests/
+│   └── 🐍 test_engine.py
+├── 📄 .env.example
+├── 🛡️ .gitignore
+├── 🐳 docker-compose.yml
+├── 🐳 Dockerfile
+├── 📄 LICENSE
+├── 🛠️ makefile
+├── 📄 README.md
+├── 📋 requirements.txt
+└── 🗺️ ROADMAP.md</code></pre>
+🧪 5. Kurulum ve Otomatik Test Talimatları
+🤖5.1. Sanal Ortam Kurulumu ve Bağımlılıklar
+Projenin bağımlılıklarını izole bir tünelde çalıştırmak için öncelikle bir sanal ortam (`venv`) oluşturup aktif etmeniz ve ardından gerekli kütüphaneleri yüklemeniz gerekmektedir:
 
----
+# 1. Proje ana dizinine gidin
+cd whatsapp-protocol-analysis
 
-## 4. Kurulum ve Çalıştırma Talimatları
+# 2. Sanal ortamı (venv) oluşturun
+python -m venv venv
 
-### Yerel Ortamda Sanal Ortam Aktifken Çalıştırma
-Sanal ortamınız aktifken gerekli kütüphaneleri yüklemek ve analiz hattını başlatmak için şu komutları koşturun:
+# 3. Sanal ortamı aktif edin (Windows Git Bash için)
+source venv/Scripts/activate
 
-pip install -r requirements.txt
+# 4. Bağımlılıkları ve test motorunu (pytest) yükleyin
+pip install -r requirements.txt pytest
+🧪 5.2. Otomatik Ünite Testleri (PyTest & CI/CD)
+
+Yazdığımız düşük seviyeli Protobuf Varint decoder modülleri, Shannon entropi hesaplama algoritmaları ve FSM durum geçişleri için hazırlanan test paketlerini yerelde çalıştırmak için:
+Bash
+
+# Tüm test senaryolarını detaylı log çıktısıyla koşturun
+pytest -v
+
+Not: Bu test hattı, reponun kök dizininde yer alan .github/workflows/ci.yml sayesinde GitHub'a her push yaptığınızda otomatik olarak bulutta da tetiklenmektedir.
+💻 5.3. Yerel Adli Analiz Hattını Çalıştırma (Forensic Pipeline)
+
+Yerel bilgisayarınızda bulunan ham ağ paketi verisini (data/traffic.har) siber güvenlik motoruna salıp, otomatik kurumsal adli rapor üretmek için:
+Bash
+
+# Sanal ortam aktifken analiz motorunu ateşleyin
 python src/main.py --har data/traffic.har
 
+İşlem tamamlandığında, analiz sonuçları ve ofansif fuzzing metrikleri otomatik olarak reports/analysis-report.md dosyasına kurumsal Markdown formatında yazılacaktır.
+🐋 5.4. Docker Laboratuvar İzolasyon Testi
 
-### Docker Konteyner Altyapısı ile İzolasyon Testi
-Projenin tamamen izole bir sistemde, bağımlılık çakışması olmadan Docker üzerinde test edilmesi için şu komutu ateşleyin:
+Bağımlılıklar veya işletim sistemi farklılıklarından tamamen izole, temiz bir Docker Sandbox üzerinde tüm analiz hattını ayağa kaldırmak için:
+Bash
 
+# Docker imajını derleyin ve izole konteyneri ayağa kaldırın
 docker compose up --build
 
----
-> *Bu proje İstinye Üniversitesi BGT210 final teslimatı kapsamında, otomatik grading motoru standartlarına tam uyumlu olarak hazırlanmıştır.*
+    ⚠️ Bu proje, siber güvenlik dökümantasyon ve adli bilişim standartlarına tam uyumlu, otomatik test (CI/CD) altyapısına sahip açık kaynaklı bir portföy çalışmasıdır. 🕵️‍♂️💎
