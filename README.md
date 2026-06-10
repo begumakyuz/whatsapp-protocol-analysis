@@ -44,6 +44,20 @@
 | Dönem       | 2025-2026 Bahar                                        |
 
 ---
+## 🗺️ İçindekiler (Table of Contents)
+1. 🎯 [1. Proje Özeti ve Kapsamı](#-1-proje-özeti-ve-kapsamı)
+2. ⚙️ [2. Sistem Mimarisi (Architecture Flow)](#%EF%B8%8F-2-sistem-mimarisi-architecture-flow)
+3. 🧠 [3. Teknik Derinlik ve Gerçek İmplementasyon Sınırları](#-3-teknik-derinlik-ve-gerçek-implementasyon-sınırları)
+4. 📂 [4. Repository Klasör Yapısı](#-4-repository-klasör-yapısı)
+5. 🧪 [5. Kurulum ve Otomatik Test Talimatları](#-5-kurulum-ve-otomatik-test-talimatları)
+   * 🤖 [5.1. Sanal Ortam Kurulumu ve Bağımlılıklar](#-51-sanal-ortam-kurulumu-ve-bağımlılıklar)
+   * 🧪 [5.2. Otomatik Ünite Testleri (PyTest & CI/CD)](#-52-otomatik-ünite-testleri-pytest--cicd)
+   * 💻 [5.3. Yerel Adli Analiz Hattını Çalıştırma (Forensic Pipeline)](#-53-yerel-adli-analiz-hattını-çalıştırma-forensic-pipeline)
+   * 🐋 [5.4. Docker Laboratuvar İzolasyon Testi](#-54-docker-laboratuvar-izolasyon-testi)
+6. 📋 [6. Belgeleme Gereksinimleri](#-6-belgeleme-gereksinimleri)
+7. 💎 [7. Profesyonellik Standartları](#-7-profesyonellik-standartları)
+
+---
 
 # 🎯 Proje Özeti ve Kapsamı
 
